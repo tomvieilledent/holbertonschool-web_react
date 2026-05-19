@@ -1,10 +1,10 @@
 interface Teacher {
-  readonly firstName: string;
-  readonly lastName: string;
-  fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
-  location: string;
-  [attributeName: string]: any;
+    readonly firstName: string;
+    readonly lastName: string;
+    fullTimeEmployee: boolean;
+    yearsOfExperience?: number;
+    location: string;
+    [attributeName: string]: any;
 }
 
 interface Directors extends Teacher {
@@ -12,12 +12,12 @@ interface Directors extends Teacher {
 }
 
 const director1: Teacher = {
-  firstName: 'John',
-  fullTimeEmployee: false,
-  lastName: 'Doe',
-  location: 'London',
-  contract: false,
-  numberOfReports: 17
+    firstName: 'John',
+    fullTimeEmployee: false,
+    lastName: 'Doe',
+    location: 'London',
+    contract: false,
+    numberOfReports: 17
 };
 
 interface printTeacherFunction {
@@ -28,6 +28,26 @@ const printTeacher: printTeacherFunction = (firstName, lastName) => {
     return `${firstName[0]}. ${lastName}`;
 }
 
+interface StudentClassInterface {
+    workOnHomework(): string;
+    displayName(): string;
+}
 
+interface StudentClassConstructor {
+    new(firstName: string, lastName: string): StudentClassInterface;
+}
 
-console.log(printTeacher("John", "Doe"));
+const StudentClass: StudentClassConstructor = class StudentClass implements StudentClassInterface {
+    constructor(private firstName: string, private lastName: string) { }
+
+    workOnHomework(): string {
+        return 'Currently working';
+    }
+
+    displayName(): string {
+        return this.firstName;
+    }
+};
+
+const student = new StudentClass('John', 'Doe');
+console.log(student.displayName());
